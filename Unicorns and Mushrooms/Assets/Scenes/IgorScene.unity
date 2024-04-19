@@ -342,9 +342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationaryObject: {fileID: 2071866164}
-  attractionForce: 10
-  attractionRange: 2
-  stickinessForce: 200
 --- !u!61 &1291290532
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -470,7 +467,7 @@ Transform:
   m_GameObject: {fileID: 2071866162}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.12, y: -0.98, z: 0}
+  m_LocalPosition: {x: 3.49, y: -3.33, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []

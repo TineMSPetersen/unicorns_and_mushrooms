@@ -3,9 +3,10 @@ using UnityEngine;
 public class StickToPlayer : MonoBehaviour
 {
     public Transform stationaryObject;
-    public float attractionForce = 10f;
-    public float attractionRange = 2f;
-    public float stickinessForce = 20f;
+    private float attractionForce = 5f;
+    private float attractionRange = 2f;
+    private float stickinessForce = 200f;
+    private float throwForce = 300f;
 
     private Rigidbody2D rb;
     private bool isSticked = false;
@@ -13,6 +14,17 @@ public class StickToPlayer : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        if (isSticked && Input.GetKeyDown(KeyCode.K))
+        {
+            isSticked = false;
+            rb.gravityScale = 1f;
+            Vector2 oppositeDirection = (transform.position - stationaryObject.position).normalized;
+            rb.AddForce(oppositeDirection * throwForce);
+        }
     }
 
     void FixedUpdate()
@@ -51,6 +63,7 @@ public class StickToPlayer : MonoBehaviour
         }
     }
 }
+
 
 
 
