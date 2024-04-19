@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Attraction2D : MonoBehaviour
+public class StickToPlayer : MonoBehaviour
 {
     public Transform stationaryObject;
     public float attractionForce = 10f;
@@ -8,7 +8,7 @@ public class Attraction2D : MonoBehaviour
     public float stickinessForce = 20f;
 
     private Rigidbody2D rb;
-    private bool isStuck = false;
+    private bool isSticked = false;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class Attraction2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isStuck)
+        if (!isSticked)
         {
             Vector2 direction = stationaryObject.position - transform.position;
 
@@ -29,12 +29,15 @@ public class Attraction2D : MonoBehaviour
 
             if (distance <= attractionRange)
             {
-                isStuck = true;
+                isSticked = true;
                 rb.velocity = Vector2.zero;
-                rb.AddForce(direction * stickinessForce, ForceMode2D.Impulse);
-
                 rb.gravityScale = 0f;
             }
+        }
+        else // this keeps it sticked
+        {
+            Vector2 direction = stationaryObject.position - transform.position;
+            rb.AddForce(direction * stickinessForce * Time.fixedDeltaTime, ForceMode2D.Force);
         }
     }
 
@@ -42,15 +45,12 @@ public class Attraction2D : MonoBehaviour
     {
         if (collision.transform == stationaryObject)
         {
-            isStuck = true;
-            rb.gravityScale = 0f;
+            isSticked = true;
             rb.velocity = Vector2.zero;
-
-            Vector2 direction = stationaryObject.position - transform.position;
-            direction.Normalize();
-            rb.AddForce(direction * stickinessForce, ForceMode2D.Impulse);
+            rb.gravityScale = 0f;
         }
     }
 }
+
 
 
